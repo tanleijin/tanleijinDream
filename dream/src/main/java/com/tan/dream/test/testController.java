@@ -3,6 +3,7 @@ package com.tan.dream.test;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * （描述）
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class testController {
 
-    @GetMapping("test")
+    @GetMapping("/")
     public String test(){
 
         System.out.print("111111111111111");
