@@ -86,17 +86,18 @@
 			<version>1.3.2</version>
 		</dependency>
 		<!-- shiro ehcache -->
-		<!--<dependency>
+		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-ehcache</artifactId>
 			<version>1.3.2</version>
 		</dependency>
+		<!-- shiro thymeleaf -->
 		<dependency>
 			<groupId>com.github.theborakompanioni</groupId>
 			<artifactId>thymeleaf-extras-shiro</artifactId>
 			<version>1.2.1</version>
 		</dependency>
--->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

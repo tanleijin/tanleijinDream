@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class testController {
 
-    @GetMapping("/")
+    @GetMapping("/test")
     public String test(){
 
         System.out.print("111111111111111");

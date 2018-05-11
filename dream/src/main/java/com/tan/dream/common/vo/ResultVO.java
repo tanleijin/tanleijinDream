@@ -23,12 +23,17 @@ public class ResultVO<T> {
     }
 
     public ResultVO() {
-        this.code = 0;
+        this.code = 1;
         this.msg = "操作成功";
     }
     public static ResultVO ok() {
         return new ResultVO();
     }
+
+    public static ResultVO error() {
+        return new ResultVO(0, "操作失败");
+    }
+
 
     public Integer getCode() {
         return code;

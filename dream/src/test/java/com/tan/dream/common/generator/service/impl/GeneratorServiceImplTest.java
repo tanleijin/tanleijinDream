@@ -30,10 +30,10 @@ public class GeneratorServiceImplTest {
     @Test
     public void generatorCode() throws Exception {
 
-        String[] tables = new String[]{"sys_user"};
+        String[] tables = new String[]{"sys_dict","sys_dept","sys_menu","sys_role","sys_role_menu","sys_user","sys_user_plus","sys_user_role"};
         byte[] bytes = generatorService.generatorCode(tables);
 
-        OutputStream out = new FileOutputStream("c:/test.zip");
+        OutputStream out = new FileOutputStream("c:/test1.zip");
 
         IOUtils.write(bytes, out);
 
