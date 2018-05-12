@@ -66,6 +66,7 @@ public class GlobalExceptionHandler {
         if (HttpServletUtils.jsAjax(request)) {
             return R.error(500, "服务器错误，请联系管理员");
         }*/
+        log.error(e.getMessage(), e);
         return new ModelAndView("error/500");
     }
 

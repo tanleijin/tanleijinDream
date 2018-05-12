@@ -14,6 +14,7 @@ import com.tan.dream.sys.service.UserRoleService;
 
 @Service
 public class UserRoleServiceImpl implements UserRoleService {
+
 	@Autowired
 	private UserRoleDao userRoleDao;
 	

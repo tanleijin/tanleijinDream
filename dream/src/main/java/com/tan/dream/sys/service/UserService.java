@@ -1,6 +1,7 @@
 package com.tan.dream.sys.service;
 
 import com.tan.dream.sys.domain.UserDO;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;

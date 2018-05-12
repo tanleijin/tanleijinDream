@@ -1,8 +1,10 @@
 package com.tan.dream.sys.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.tan.dream.sys.service.impl.UserServiceImpl;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -32,6 +34,7 @@ import com.tan.dream.common.vo.ResultVO;
 @Controller
 @RequestMapping("/sys/user")
 public class UserController {
+
 	@Autowired
 	private UserService userService;
 	
@@ -43,11 +46,15 @@ public class UserController {
 	
 	@ResponseBody
 	@GetMapping("/list")
-	@RequiresPermissions("sys:user:user")
+	//@RequiresPermissions("sys:user:user")
 	public PageUtils list(@RequestParam Map<String, Object> params){
 		//查询列表数据
         Query query = new Query(params);
-		List<UserDO> userList = userService.list(query);
+		Map map = new HashMap();
+		map.put("offset",0);
+		map.put("limit",10);
+		map.put("page",1);
+		List<UserDO> userList = userService.list(map);
 		int total = userService.count(query);
 		PageUtils pageUtils = new PageUtils(userList, total);
 		return pageUtils;
