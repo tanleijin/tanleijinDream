@@ -1,12 +1,11 @@
 package com.tan.dream.sys.controller;
 
 
-import com.tan.dream.common.annotation.Log;
+import com.tan.dream.common.log.annotation.Log;
 import com.tan.dream.common.controller.BaseController;
 import com.tan.dream.common.shiro.utils.ShiroUtils;
 import com.tan.dream.common.utils.MD5Utils;
 import com.tan.dream.common.vo.ResultVO;
-import com.tan.dream.sys.domain.MenuDO;
 import com.tan.dream.sys.service.MenuService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -21,8 +20,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
-
 @Controller
 public class LoginController extends BaseController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -34,7 +31,7 @@ public class LoginController extends BaseController {
 	@GetMapping({ "/", "" })
 	String welcome(Model model) {
 
-		return "redirect:/blog";
+		return "redirect:/login";
 	}
 
 	@Log("请求访问主页")
@@ -65,17 +62,14 @@ public class LoginController extends BaseController {
 	@Log("登录")
 	@PostMapping("/login")
 	@ResponseBody
-	ResultVO ajaxLogin(String username, String password) {
+	ResultVO ajaxLogin(String username, String password) throws AuthenticationException {
 
 		password = MD5Utils.encrypt(username, password);
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 		Subject subject = SecurityUtils.getSubject();
-		try {
-			subject.login(token);
-			return ResultVO.ok();
-		} catch (AuthenticationException e) {
-			return new ResultVO(1,"用户或密码错误");
-		}
+		subject.login(token);
+		return ResultVO.ok();
+
 	}
 
 	@GetMapping("/logout")
