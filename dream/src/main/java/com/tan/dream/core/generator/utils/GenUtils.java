@@ -1,13 +1,11 @@
 package com.tan.dream.core.generator.utils;
 
 
-import com.tan.dream.common.exception.DreamException;
-import com.tan.dream.common.exception.DreamExceptionEnum;
-import com.tan.dream.common.generator.dataobject.ColumnDO;
-import com.tan.dream.common.generator.dataobject.TableDO;
-import com.tan.dream.common.utils.DateUtils;
+import com.tan.dream.core.exception.DreamException;
+import com.tan.dream.core.exception.DreamExceptionEnum;
 import com.tan.dream.core.generator.dataobject.ColumnDO;
 import com.tan.dream.core.generator.dataobject.TableDO;
+import com.tan.dream.core.utils.DateUtils;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;

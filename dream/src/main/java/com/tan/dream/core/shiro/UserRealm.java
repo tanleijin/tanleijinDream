@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import com.tan.dream.common.config.ApplicationContextRegister;
-import com.tan.dream.common.shiro.utils.ShiroUtils;
+import com.tan.dream.core.config.ApplicationContextRegister;
+import com.tan.dream.core.shiro.utils.ShiroUtils;
 import com.tan.dream.sys.dao.UserDao;
 import com.tan.dream.sys.domain.UserDO;
 import com.tan.dream.sys.service.MenuService;

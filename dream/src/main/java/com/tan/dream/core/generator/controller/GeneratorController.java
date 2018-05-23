@@ -1,12 +1,11 @@
 package com.tan.dream.core.generator.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.tan.dream.common.exception.DreamException;
-import com.tan.dream.common.exception.DreamExceptionEnum;
-import com.tan.dream.common.generator.service.GeneratorService;
-import com.tan.dream.common.generator.utils.GenUtils;
-import com.tan.dream.common.vo.ResultVO;
+import com.tan.dream.core.exception.DreamException;
+import com.tan.dream.core.exception.DreamExceptionEnum;
 import com.tan.dream.core.generator.service.GeneratorService;
+import com.tan.dream.core.generator.utils.GenUtils;
+import com.tan.dream.core.vo.ResultVO;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;

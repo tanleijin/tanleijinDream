@@ -1,10 +1,8 @@
 package com.tan.dream.core.log.aspect;
 
-import com.bootdo.common.utils.HttpContextUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
-import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -22,7 +20,7 @@ public class WebLogAspect {
 
     private static final Logger logger = LoggerFactory.getLogger(WebLogAspect.class);
 
-    @Pointcut("execution( * com.bootdo..controller.*.*(..))")//两个..代表所有子目录，最后括号里的两个..代表所有参数
+    @Pointcut("execution( * com.tan.dream..controller.*.*(..))")//两个..代表所有子目录，最后括号里的两个..代表所有参数
     public void logPointCut() {
     }
 

@@ -2,8 +2,7 @@ package com.tan.dream.core.shiro.config;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 
-import com.tan.dream.common.listener.BDSessionListener;
-import com.tan.dream.common.shiro.UserRealm;
+import com.tan.dream.core.listener.BDSessionListener;
 import com.tan.dream.core.shiro.UserRealm;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.mgt.SecurityManager;

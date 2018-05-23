@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipOutputStream;
 
-import com.tan.dream.common.generator.dao.GeneratorDao;
-import com.tan.dream.common.generator.service.GeneratorService;
-import com.tan.dream.common.generator.utils.GenUtils;
+import com.tan.dream.core.generator.dao.GeneratorDao;
+import com.tan.dream.core.generator.service.GeneratorService;
+import com.tan.dream.core.generator.utils.GenUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

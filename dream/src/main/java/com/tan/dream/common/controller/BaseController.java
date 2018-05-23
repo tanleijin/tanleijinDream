@@ -1,6 +1,5 @@
-package com.tan.dream.core.controller;
+package com.tan.dream.common.controller;
 
-import com.tan.dream.common.shiro.utils.ShiroUtils;
 import com.tan.dream.core.shiro.utils.ShiroUtils;
 import com.tan.dream.sys.domain.UserDO;
 import org.springframework.stereotype.Controller;

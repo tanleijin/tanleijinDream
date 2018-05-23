@@ -1,6 +1,6 @@
 package com.tan.dream.sys.service.impl;
 
-import com.tan.dream.common.utils.StringUtils;
+import com.tan.dream.core.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

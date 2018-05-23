@@ -57,10 +57,10 @@ public class LogAspect {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
         LogDO sysLog = new LogDO();
-        Log syslog = method.getAnnotation(Log.class);
-        if (syslog != null) {
+        Log log = method.getAnnotation(Log.class);
+        if (log != null) {
             // 注解上的描述
-            sysLog.setOperation(syslog.value());
+            sysLog.setOperation(log.value());
         }
         // 请求的方法名
         String className = joinPoint.getTarget().getClass().getName();

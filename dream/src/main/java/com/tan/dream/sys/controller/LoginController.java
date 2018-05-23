@@ -1,11 +1,11 @@
 package com.tan.dream.sys.controller;
 
 
-import com.tan.dream.common.log.annotation.Log;
 import com.tan.dream.common.controller.BaseController;
-import com.tan.dream.common.shiro.utils.ShiroUtils;
-import com.tan.dream.common.utils.MD5Utils;
-import com.tan.dream.common.vo.ResultVO;
+import com.tan.dream.core.log.annotation.Log;
+import com.tan.dream.core.shiro.utils.ShiroUtils;
+import com.tan.dream.core.utils.MD5Utils;
+import com.tan.dream.core.vo.ResultVO;
 import com.tan.dream.sys.service.MenuService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;

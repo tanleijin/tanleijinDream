@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tan.dream.sys.domain.UserDO;
 import com.tan.dream.sys.service.UserService;
-import com.tan.dream.common.utils.PageUtils;
-import com.tan.dream.common.utils.Query;
-import com.tan.dream.common.vo.ResultVO;
+import com.tan.dream.core.utils.PageUtils;
+import com.tan.dream.core.utils.Query;
+import com.tan.dream.core.vo.ResultVO;
 
 /**
  * 

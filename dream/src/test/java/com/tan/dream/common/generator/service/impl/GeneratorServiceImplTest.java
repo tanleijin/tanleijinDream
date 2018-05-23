@@ -1,7 +1,8 @@
 package com.tan.dream.common.generator.service.impl;
 
-import com.tan.dream.common.generator.service.GeneratorService;
-import com.tan.dream.common.generator.utils.GenUtils;
+import com.tan.dream.core.generator.service.GeneratorService;
+import com.tan.dream.core.generator.service.impl.GeneratorServiceImpl;
+import com.tan.dream.core.generator.utils.GenUtils;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
