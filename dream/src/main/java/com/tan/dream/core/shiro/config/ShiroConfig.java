@@ -1,6 +1,5 @@
 package com.tan.dream.core.shiro.config;
 
-import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 
 import com.tan.dream.core.listener.BDSessionListener;
 import com.tan.dream.core.shiro.UserRealm;
@@ -51,10 +50,10 @@ public class ShiroConfig {
      * ShiroDialect，为了在thymeleaf里使用shiro的标签的bean
      * @return
      */
-    @Bean
+/*    @Bean
     public ShiroDialect shiroDialect() {
         return new ShiroDialect();
-    }
+    }*/
 
 	@Bean
     ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {

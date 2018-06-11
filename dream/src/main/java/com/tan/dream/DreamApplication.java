@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-@EnableAutoConfiguration
 @MapperScan(basePackages = "com.tan.dream.**.dao")
 @SpringBootApplication
 public class DreamApplication {
