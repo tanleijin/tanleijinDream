@@ -26,17 +26,8 @@ import java.util.LinkedHashMap;
  */
 @Configuration
 public class ShiroConfig {
-/*    @Value("${spring.redis.host}")
-    private String host;
-    @Value("${spring.redis.password}")
-    private String password;
-    @Value("${spring.redis.port}")
-    private int port;
-    @Value("${spring.redis.timeout}")
-    private int timeout;*/
 
-    @Value("${cacheType}")
-    private String cacheType;
+
 
     @Value("${server.session-timeout}")
     private int tomcatTimeout;
@@ -106,15 +97,11 @@ public class ShiroConfig {
     public DefaultWebSessionManager sessionManager() {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         sessionManager.setGlobalSessionTimeout(tomcatTimeout*1000);
-        sessionManager.setSessionDAO(sessionDAO());
+        //配置session的监听
         Collection<SessionListener> listeners = new ArrayList<SessionListener>();
         listeners.add(new BDSessionListener());
         sessionManager.setSessionListeners(listeners);
         return sessionManager;
-    }
-    @Bean
-    public SessionDAO sessionDAO(){
-        return new MemorySessionDAO();
     }
 
 	@Bean

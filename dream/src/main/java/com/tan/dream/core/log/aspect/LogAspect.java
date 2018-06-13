@@ -12,7 +12,7 @@ import com.tan.dream.core.log.Service.LogService;
 import com.tan.dream.core.log.annotation.Log;
 import com.tan.dream.core.log.domain.LogDO;
 import com.tan.dream.core.shiro.utils.ShiroUtils;
-import com.tan.dream.core.utils.HttpContextUtils;
+import com.tan.dream.core.utils.HttpServletUtils;
 import com.tan.dream.core.utils.IPUtils;
 import com.tan.dream.core.utils.JSONUtils;
 import com.tan.dream.sys.domain.UserDO;
@@ -75,7 +75,7 @@ public class LogAspect {
 
         }
         // 获取request
-        HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
+        HttpServletRequest request = HttpServletUtils.getHttpServletRequest();
         // 设置IP地址
         sysLog.setIp(IPUtils.getIpAddr(request));
         // 用户名
