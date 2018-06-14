@@ -1,8 +1,5 @@
 package com.tan.dream.common.generator.service.impl;
 
-import com.tan.dream.core.generator.service.GeneratorService;
-import com.tan.dream.core.generator.service.impl.GeneratorServiceImpl;
-import com.tan.dream.core.generator.utils.GenUtils;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,10 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
-
-import static org.junit.Assert.*;
 
 /**
  * @Author: tanleijin

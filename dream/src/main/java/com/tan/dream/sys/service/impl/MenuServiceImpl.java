@@ -1,5 +1,7 @@
 package com.tan.dream.sys.service.impl;
 
+import com.tan.dream.core.tree.BuildTree;
+import com.tan.dream.core.tree.Tree;
 import com.tan.dream.core.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,9 +16,11 @@ import com.tan.dream.sys.service.MenuService;
 
 @Service
 public class MenuServiceImpl implements MenuService {
+
 	@Autowired
 	private MenuDao menuDao;
-	
+
+
 	@Override
 	public MenuDO get(Long menuId){
 		return menuDao.get(menuId);
@@ -62,5 +66,23 @@ public class MenuServiceImpl implements MenuService {
 		}
 		return permsSet;
 	}
-	
+	@Override
+	public List<Tree<MenuDO>> listMenuTree(Long id) {
+		List<Tree<MenuDO>> trees = new ArrayList<Tree<MenuDO>>();
+		List<MenuDO> menuDOs = menuDao.listMenuByUserId(id);
+		for (MenuDO sysMenuDO : menuDOs) {
+			Tree<MenuDO> tree = new Tree<MenuDO>();
+			tree.setId(sysMenuDO.getMenuId().toString());
+			tree.setParentId(sysMenuDO.getParentId().toString());
+			tree.setText(sysMenuDO.getName());
+			Map<String, Object> attributes = new HashMap<>(16);
+			attributes.put("url", sysMenuDO.getUrl());
+			attributes.put("icon", sysMenuDO.getIcon());
+			tree.setAttributes(attributes);
+			trees.add(tree);
+		}
+		// 默认顶级菜单为０，根据数据库实际情况调整
+		List<Tree<MenuDO>> list = BuildTree.buildList(trees, "0");
+		return list;
+	}
 }

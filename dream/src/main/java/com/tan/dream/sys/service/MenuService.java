@@ -1,5 +1,6 @@
 package com.tan.dream.sys.service;
 
+import com.tan.dream.core.tree.Tree;
 import com.tan.dream.sys.domain.MenuDO;
 
 import java.util.List;
@@ -14,7 +15,9 @@ import java.util.Set;
  * @date 2018-05-11 16:38:35
  */
 public interface MenuService {
-	
+
+	List<Tree<MenuDO>> listMenuTree(Long id);
+
 	MenuDO get(Long menuId);
 	
 	List<MenuDO> list(Map<String, Object> map);

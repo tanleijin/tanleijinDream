@@ -2,8 +2,8 @@ package com.tan.dream.core.exception.handler;
 
 
 import com.tan.dream.core.exception.DreamException;
-import com.tan.dream.core.log.Service.LogService;
-import com.tan.dream.core.log.domain.LogDO;
+import com.tan.dream.common.log.Service.LogService;
+import com.tan.dream.common.log.domain.LogDO;
 import com.tan.dream.core.shiro.utils.ShiroUtils;
 import com.tan.dream.core.utils.HttpServletUtils;
 import com.tan.dream.core.vo.ResultVO;

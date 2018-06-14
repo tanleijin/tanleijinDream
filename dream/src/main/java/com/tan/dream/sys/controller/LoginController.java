@@ -2,10 +2,14 @@ package com.tan.dream.sys.controller;
 
 
 import com.tan.dream.common.controller.BaseController;
-import com.tan.dream.core.log.annotation.Log;
+import com.tan.dream.common.file.domain.FileDO;
+import com.tan.dream.common.file.service.FileService;
+import com.tan.dream.core.tree.Tree;
+import com.tan.dream.common.log.annotation.Log;
 import com.tan.dream.core.shiro.utils.ShiroUtils;
 import com.tan.dream.core.utils.MD5Utils;
 import com.tan.dream.core.vo.ResultVO;
+import com.tan.dream.sys.domain.MenuDO;
 import com.tan.dream.sys.service.MenuService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -20,14 +24,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 public class LoginController extends BaseController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	MenuService menuService;
-	/*@Autowired*/
-	//FileService fileService;
+	@Autowired
+	FileService fileService;
 	@GetMapping({ "/", "" })
 	String welcome(Model model) {
 
@@ -37,9 +43,9 @@ public class LoginController extends BaseController {
 	@Log("请求访问主页")
 	@GetMapping({ "/index" })
 	String index(Model model) {
-/*		List<Tree<MenuDO>> menus = menuService.listMenuTree(getUserId());
+		List<Tree<MenuDO>> menus = menuService.listMenuTree(getUserId());
 		model.addAttribute("menus", menus);
-		model.addAttribute("name", getUser().getName());
+		model.addAttribute("name", super.getUsername());
 		FileDO fileDO = fileService.get(getUser().getPicId());
 		if(fileDO!=null&&fileDO.getUrl()!=null){
 			if(fileService.isExist(fileDO.getUrl())){
@@ -50,7 +56,7 @@ public class LoginController extends BaseController {
 		}else {
 			model.addAttribute("picUrl","/img/photo_s.jpg");
 		}
-		model.addAttribute("username", getUser().getUsername());*/
+		model.addAttribute("username", getUser().getUsername());
 		return "index_v1";
 	}
 

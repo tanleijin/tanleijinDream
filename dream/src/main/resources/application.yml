@@ -33,5 +33,5 @@ spring:
 
 mybatis:
   mapper-locations: mybatis/**/*Mapper.xml
-#  configuration:
-#    mapUnderscoreToCamelCase: true
+debug: true
+
