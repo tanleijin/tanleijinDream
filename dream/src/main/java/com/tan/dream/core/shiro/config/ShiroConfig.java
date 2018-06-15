@@ -3,6 +3,7 @@ package com.tan.dream.core.shiro.config;
 
 import com.tan.dream.core.listener.BDSessionListener;
 import com.tan.dream.core.shiro.UserRealm;
+import net.sf.ehcache.CacheManager;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.SessionListener;
@@ -13,10 +14,13 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.security.PrivateKey;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -27,7 +31,8 @@ import java.util.LinkedHashMap;
 @Configuration
 public class ShiroConfig {
 
-
+    //@Autowired
+    //private CacheManager cacheManager;
 
     @Value("${server.session-timeout}")
     private int tomcatTimeout;
@@ -75,21 +80,23 @@ public class ShiroConfig {
 
 
     @Bean
-    public SecurityManager securityManager(){
+    public SecurityManager securityManager(EhCacheManager ehCacheManager){
         DefaultWebSecurityManager securityManager =  new DefaultWebSecurityManager();
         //设置realm.
         securityManager.setRealm(userRealm());
         // 自定义缓存实现 使用redis
-        //securityManager.setCacheManager();
+        securityManager.setCacheManager(ehCacheManager);
         securityManager.setSessionManager(sessionManager());
         return securityManager;
     }
-/*    @Bean
-    public EhCacheManager ehCacheManager() {
+    @Bean
+    public EhCacheManager ehCacheManager(CacheManager cacheManager) {
         EhCacheManager em = new EhCacheManager();
-        em.setCacheManagerConfigFile("classpath:ehcache.xml");
+        //将ehcacheManager转换成shiro包装后的ehcacheManager对象
+        em.setCacheManager(cacheManager);
+        //em.setCacheManagerConfigFile("classpath:ehcache.xml");
         return em;
-    }*/
+    }
     /**
      * shiro session的管理
      */
