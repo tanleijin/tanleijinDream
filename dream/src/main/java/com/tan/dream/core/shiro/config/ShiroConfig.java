@@ -80,16 +80,16 @@ public class ShiroConfig {
         //设置realm.
         securityManager.setRealm(userRealm());
         // 自定义缓存实现 使用redis
-        securityManager.setCacheManager(ehCacheManager());
+        //securityManager.setCacheManager();
         securityManager.setSessionManager(sessionManager());
         return securityManager;
     }
-    @Bean
+/*    @Bean
     public EhCacheManager ehCacheManager() {
         EhCacheManager em = new EhCacheManager();
         em.setCacheManagerConfigFile("classpath:ehcache.xml");
         return em;
-    }
+    }*/
     /**
      * shiro session的管理
      */

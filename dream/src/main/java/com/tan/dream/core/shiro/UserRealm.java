@@ -30,6 +30,11 @@ public class UserRealm extends AuthorizingRealm {
 	@Autowired
 	MenuService menuService;*/
 
+	/**
+	 * 认证
+	 * @param arg0
+	 * @return
+	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
 		Long userId = ShiroUtils.getUserId();

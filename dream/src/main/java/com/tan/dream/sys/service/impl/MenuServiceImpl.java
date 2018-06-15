@@ -4,6 +4,7 @@ import com.tan.dream.core.tree.BuildTree;
 import com.tan.dream.core.tree.Tree;
 import com.tan.dream.core.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -67,6 +68,7 @@ public class MenuServiceImpl implements MenuService {
 		return permsSet;
 	}
 	@Override
+	@Cacheable(cacheNames = "menu")
 	public List<Tree<MenuDO>> listMenuTree(Long id) {
 		List<Tree<MenuDO>> trees = new ArrayList<Tree<MenuDO>>();
 		List<MenuDO> menuDOs = menuDao.listMenuByUserId(id);
