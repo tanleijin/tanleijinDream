@@ -1,5 +1,6 @@
 package com.tan.dream.sys.controller;
 
+import com.tan.dream.common.constant.Constant;
 import com.tan.dream.core.utils.PageUtils;
 import com.tan.dream.core.utils.Query;
 import com.tan.dream.core.vo.ResultVO;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,40 +27,47 @@ import java.util.Map;
 @Controller
 @RequestMapping("/sys/dept")
 public class DeptController {
+
+	private String prefix = "sys/dept/";
+
 	@Autowired
 	private DeptService deptService;
 	
 	@GetMapping()
 	@RequiresPermissions("sys:dept:dept")
 	String Dept(){
-	    return "sys/dept/dept";
+	    return prefix+"dept";
 	}
-	
+
+	@GetMapping("/edit/{deptId}")
+	@RequiresPermissions("sys:dept:edit")
+	String edit(@PathVariable("deptId") Long deptId, Model model) {
+		DeptDO sysDept = deptService.get(deptId);
+		model.addAttribute("sysDept", sysDept);
+		if(Constant.DEPT_ROOT_ID.equals(sysDept.getParentId())) {
+			model.addAttribute("parentDeptName", "无");
+		}else {
+			DeptDO parDept = deptService.get(sysDept.getParentId());
+			model.addAttribute("parentDeptName", parDept.getName());
+		}
+		return  prefix + "edit";
+	}
+
+	//@ApiOperation(value="获取部门列表", notes="")
 	@ResponseBody
 	@GetMapping("/list")
 	@RequiresPermissions("sys:dept:dept")
-	public PageUtils list(@RequestParam Map<String, Object> params){
-		//查询列表数据
-        Query query = new Query(params);
-		List<DeptDO> deptList = deptService.list(query);
-		int total = deptService.count(query);
-		PageUtils pageUtils = new PageUtils(deptList, total);
-		return pageUtils;
+	public List<DeptDO> list() {
+		Map<String, Object> query = new HashMap<>(16);
+		List<DeptDO> sysDeptList = deptService.list(query);
+		return sysDeptList;
 	}
-	
 	@GetMapping("/add")
 	@RequiresPermissions("sys:dept:add")
 	String add(){
 	    return "sys/dept/add";
 	}
 
-	@GetMapping("/edit/{deptId}")
-	@RequiresPermissions("sys:dept:edit")
-	String edit(@PathVariable("deptId") Long deptId,Model model){
-		DeptDO dept = deptService.get(deptId);
-		model.addAttribute("dept", dept);
-	    return "sys/dept/edit";
-	}
 	
 	/**
 	 * 保存
