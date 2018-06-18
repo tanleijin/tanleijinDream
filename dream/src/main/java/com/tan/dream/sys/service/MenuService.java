@@ -25,7 +25,7 @@ public interface MenuService {
 	int count(Map<String, Object> map);
 	
 	int save(MenuDO menu);
-	
+
 	int update(MenuDO menu);
 	
 	int remove(Long menuId);
@@ -33,4 +33,9 @@ public interface MenuService {
 	int batchRemove(Long[] menuIds);
 
 	Set<String> listPerms(Long userId);
+
+	Tree<MenuDO> getTree();
+
+	Tree<MenuDO> getTree(Long id);
+
 }

@@ -3,6 +3,7 @@ package com.tan.dream.sys.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.tan.dream.core.tree.Tree;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -113,5 +114,20 @@ public class MenuController {
 		menuService.batchRemove(menuIds);
 		return ResultVO.ok();
 	}
-	
+
+	@GetMapping("/tree")
+	@ResponseBody
+	Tree<MenuDO> tree() {
+		Tree<MenuDO> tree = new Tree<MenuDO>();
+		tree = menuService.getTree();
+		return tree;
+	}
+
+	@GetMapping("/tree/{roleId}")
+	@ResponseBody
+	Tree<MenuDO> tree(@PathVariable("roleId") Long roleId) {
+		Tree<MenuDO> tree = new Tree<MenuDO>();
+		tree = menuService.getTree(roleId);
+		return tree;
+	}
 }
