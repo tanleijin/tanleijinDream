@@ -68,5 +68,17 @@
 			#{id}
 		</foreach>
 	</delete>
+	<select id="listRoleId" resultType="long">
+		select role_id from
+		sys_user_role where
+		user_id=#{userId}
+	</select>
+	<delete id="batchRemoveByUserId">
+		delete from sys_user_role where user_id in
+		<foreach item="id" collection="array" open="(" separator=","
+				 close=")">
+			#{id}
+		</foreach>
+	</delete>
 
 </mapper>

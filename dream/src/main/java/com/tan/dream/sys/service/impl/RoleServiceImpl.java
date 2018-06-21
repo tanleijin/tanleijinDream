@@ -1,10 +1,13 @@
 package com.tan.dream.sys.service.impl;
 
+import com.tan.dream.sys.dao.UserRoleDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import com.tan.dream.sys.dao.RoleDao;
 import com.tan.dream.sys.domain.RoleDO;
@@ -16,6 +19,8 @@ import com.tan.dream.sys.service.RoleService;
 public class RoleServiceImpl implements RoleService {
 	@Autowired
 	private RoleDao roleDao;
+	@Autowired
+	private UserRoleDao userRoleDao;
 	
 	@Override
 	public RoleDO get(Long roleId){
@@ -51,5 +56,27 @@ public class RoleServiceImpl implements RoleService {
 	public int batchRemove(Long[] roleIds){
 		return roleDao.batchRemove(roleIds);
 	}
-	
+
+	@Override
+	public List<RoleDO> list() {
+		List<RoleDO> roles = roleDao.list(new HashMap<>(16));
+		return roles;
+	}
+
+	@Override
+	public List<RoleDO> list(Long userId) {
+		List<Long> rolesIds = userRoleDao.listRoleId(userId);
+		List<RoleDO> roles = roleDao.list(new HashMap<>(16));
+		for (RoleDO roleDO : roles) {
+			roleDO.setRoleSign("false");
+			for (Long roleId : rolesIds) {
+				if (Objects.equals(roleDO.getRoleId(), roleId)) {
+					roleDO.setRoleSign("true");
+					break;
+				}
+			}
+		}
+		return roles;
+	}
+
 }

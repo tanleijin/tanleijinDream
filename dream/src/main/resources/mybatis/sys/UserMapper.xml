@@ -148,5 +148,8 @@
 			#{userId}
 		</foreach>
 	</delete>
+	<select id="listAllDept" resultType="long">
+		select DISTINCT dept_id from sys_user
+	</select>
 
 </mapper>

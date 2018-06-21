@@ -27,4 +27,7 @@ public interface RoleService {
 	int remove(Long roleId);
 	
 	int batchRemove(Long[] roleIds);
+
+	List<RoleDO> list();
+	List<RoleDO> list(Long userId);
 }

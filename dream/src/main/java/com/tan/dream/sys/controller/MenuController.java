@@ -3,7 +3,10 @@ package com.tan.dream.sys.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.tan.dream.common.controller.BaseController;
+import com.tan.dream.common.log.annotation.Log;
 import com.tan.dream.core.tree.Tree;
+import com.tan.dream.core.vo.R;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -32,93 +35,98 @@ import com.tan.dream.core.vo.ResultVO;
  
 @Controller
 @RequestMapping("/sys/menu")
-public class MenuController {
+public class MenuController extends BaseController {
+	String prefix = "sys/menu";
 	@Autowired
-	private MenuService menuService;
-	
+	MenuService menuService;
+
+	@RequiresPermissions("sys:menu:menu")
 	@GetMapping()
-	@RequiresPermissions("sys:menu:menu")
-	String Menu(){
-	    return "sys/menu/menu";
-	}
-	
-	@ResponseBody
-	@GetMapping("/list")
-	@RequiresPermissions("sys:menu:menu")
-	public PageUtils list(@RequestParam Map<String, Object> params){
-		//查询列表数据
-        Query query = new Query(params);
-		List<MenuDO> menuList = menuService.list(query);
-		int total = menuService.count(query);
-		PageUtils pageUtils = new PageUtils(menuList, total);
-		return pageUtils;
-	}
-	
-	@GetMapping("/add")
-	@RequiresPermissions("sys:menu:add")
-	String add(){
-	    return "sys/menu/add";
+	String menu(Model model) {
+		return prefix+"/menu";
 	}
 
-	@GetMapping("/edit/{menuId}")
-	@RequiresPermissions("sys:menu:edit")
-	String edit(@PathVariable("menuId") Long menuId,Model model){
-		MenuDO menu = menuService.get(menuId);
-		model.addAttribute("menu", menu);
-	    return "sys/menu/edit";
-	}
-	
-	/**
-	 * 保存
-	 */
+	@RequiresPermissions("sys:menu:menu")
+	@RequestMapping("/list")
 	@ResponseBody
-	@PostMapping("/save")
+	List<MenuDO> list(@RequestParam Map<String, Object> params) {
+		List<MenuDO> menus = menuService.list(params);
+		return menus;
+	}
+
+	@Log("添加菜单")
 	@RequiresPermissions("sys:menu:add")
-	public ResultVO save( MenuDO menu){
-		if(menuService.save(menu)>0){
-			return ResultVO.ok();
+	@GetMapping("/add/{pId}")
+	String add(Model model, @PathVariable("pId") Long pId) {
+		model.addAttribute("pId", pId);
+		if (pId == 0) {
+			model.addAttribute("pName", "根目录");
+		} else {
+			model.addAttribute("pName", menuService.get(pId).getName());
 		}
-		return ResultVO.error();
+		return prefix + "/add";
 	}
-	/**
-	 * 修改
-	 */
-	@ResponseBody
-	@RequestMapping("/update")
+
+	@Log("编辑菜单")
 	@RequiresPermissions("sys:menu:edit")
-	public ResultVO update( MenuDO menu){
-		menuService.update(menu);
-		return ResultVO.ok();
-	}
-	
-	/**
-	 * 删除
-	 */
-	@PostMapping( "/remove")
-	@ResponseBody
-	@RequiresPermissions("sys:menu:remove")
-	public ResultVO remove( Long menuId){
-		if(menuService.remove(menuId)>0){
-		return ResultVO.ok();
+	@GetMapping("/edit/{id}")
+	String edit(Model model, @PathVariable("id") Long id) {
+		MenuDO mdo = menuService.get(id);
+		Long pId = mdo.getParentId();
+		model.addAttribute("pId", pId);
+		if (pId == 0) {
+			model.addAttribute("pName", "根目录");
+		} else {
+			model.addAttribute("pName", menuService.get(pId).getName());
 		}
-		return ResultVO.error();
+		model.addAttribute("menu", mdo);
+		return prefix+"/edit";
 	}
-	
-	/**
-	 * 删除
-	 */
-	@PostMapping( "/batchRemove")
+
+	@Log("保存菜单")
+	@RequiresPermissions("sys:menu:add")
+	@PostMapping("/save")
 	@ResponseBody
-	@RequiresPermissions("sys:menu:batchRemove")
-	public ResultVO remove(@RequestParam("ids[]") Long[] menuIds){
-		menuService.batchRemove(menuIds);
-		return ResultVO.ok();
+	R save(MenuDO menu) {
+
+		if (menuService.save(menu) > 0) {
+			return R.ok();
+		} else {
+			return R.error(1, "保存失败");
+		}
+	}
+
+	@Log("更新菜单")
+	@RequiresPermissions("sys:menu:edit")
+	@PostMapping("/update")
+	@ResponseBody
+	R update(MenuDO menu) {
+
+		if (menuService.update(menu) > 0) {
+			return R.ok();
+		} else {
+			return R.error(1, "更新失败");
+		}
+	}
+
+	@Log("删除菜单")
+	@RequiresPermissions("sys:menu:remove")
+	@PostMapping("/remove")
+	@ResponseBody
+	R remove(Long id) {
+
+		if (menuService.remove(id) > 0) {
+			return R.ok();
+		} else {
+			return R.error(1, "删除失败");
+		}
 	}
 
 	@GetMapping("/tree")
 	@ResponseBody
 	Tree<MenuDO> tree() {
 		Tree<MenuDO> tree = new Tree<MenuDO>();
+
 		tree = menuService.getTree();
 		return tree;
 	}

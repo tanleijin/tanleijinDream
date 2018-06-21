@@ -29,4 +29,14 @@ public interface UserRoleDao {
 	int remove(Long id);
 	
 	int batchRemove(Long[] ids);
+
+	/**
+	 * 通过userId获取该用户拥有的所有角色
+	 * @param userId
+	 * @return
+	 */
+	List<Long> listRoleId(Long userId);
+
+	int batchRemoveByUserId(Long[] ids);
+
 }
