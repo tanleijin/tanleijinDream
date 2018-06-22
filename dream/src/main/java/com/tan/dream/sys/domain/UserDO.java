@@ -1,8 +1,10 @@
 package com.tan.dream.sys.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
-
+import java.util.List;
 
 
 /**
@@ -23,8 +25,9 @@ public class UserDO implements Serializable {
 	private String name;
 	//密码
 	private String password;
-	//
+	//部门id
 	private Long deptId;
+
 	//邮箱
 	private String email;
 	//手机号
@@ -40,6 +43,7 @@ public class UserDO implements Serializable {
 	//性别
 	private Long sex;
 	//出身日期
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birth;
 	//
 	private Long picId;
@@ -53,6 +57,13 @@ public class UserDO implements Serializable {
 	private String city;
 	//所在地区
 	private String district;
+
+	//********************************************************扩展字段
+	//部门名称
+	private String deptName;
+
+	//角色
+	private List<Long> roleIds;
 
 	/**
 	 * 设置：
@@ -281,5 +292,21 @@ public class UserDO implements Serializable {
 	 */
 	public String getDistrict() {
 		return district;
+	}
+
+	public String getDeptName() {
+		return deptName;
+	}
+
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
+
+	public List<Long> getRoleIds() {
+		return roleIds;
+	}
+
+	public void setRoleIds(List<Long> roleIds) {
+		this.roleIds = roleIds;
 	}
 }

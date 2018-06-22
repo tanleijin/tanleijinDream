@@ -33,6 +33,9 @@ import com.tan.dream.sys.service.UserService;
 import com.tan.dream.core.utils.PageUtils;
 import com.tan.dream.core.utils.Query;
 import com.tan.dream.core.vo.ResultVO;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 
@@ -221,20 +224,20 @@ public class UserController extends BaseController {
 		return  prefix + "/userTree";
 	}
 
-/*	@GetMapping("/personal")
+	@GetMapping("/personal")
 	String personal(Model model) {
 		UserDO userDO  = userService.get(getUserId());
 		model.addAttribute("user",userDO);
 		model.addAttribute("hobbyList",dictService.getHobbyList(userDO));
 		model.addAttribute("sexList",dictService.getSexList());
 		return prefix + "/personal";
-	}*/
-/*	@ResponseBody
+	}
+	@ResponseBody
 	@PostMapping("/uploadImg")
 	R uploadImg(@RequestParam("avatar_file") MultipartFile file, String avatar_data, HttpServletRequest request) {
-		if ("test".equals(getUsername())) {
+/*		if ("test".equals(getUsername())) {
 			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
+		}*/
 		Map<String, Object> result = new HashMap<>();
 		try {
 			result = userService.updatePersonalImg(file, avatar_data, getUserId());
@@ -246,6 +249,6 @@ public class UserController extends BaseController {
 		}else {
 			return R.error("更新图像失败！");
 		}
-	}*/
+	}
 	
 }

@@ -1,6 +1,7 @@
 package com.tan.dream.sys.service;
 
 import com.tan.dream.sys.domain.DictDO;
+import com.tan.dream.sys.domain.UserDO;
 
 import java.util.List;
 import java.util.Map;
@@ -27,4 +28,25 @@ public interface DictService {
 	int remove(Long id);
 	
 	int batchRemove(Long[] ids);
+
+	String getName(String type,String value);
+	/**
+	 * 获取爱好列表
+	 * @return
+	 * @param userDO
+	 */
+	List<DictDO> getHobbyList(UserDO userDO);
+
+	/**
+	 * 获取性别列表
+	 * @return
+	 */
+	List<DictDO> getSexList();
+
+	/**
+	 * 根据type获取数据
+	 * @param type
+	 * @return
+	 */
+	List<DictDO> listByType(String type);
 }

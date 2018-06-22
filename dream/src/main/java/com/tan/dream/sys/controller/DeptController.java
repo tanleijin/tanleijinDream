@@ -1,8 +1,7 @@
 package com.tan.dream.sys.controller;
 
 import com.tan.dream.common.constant.Constant;
-import com.tan.dream.core.utils.PageUtils;
-import com.tan.dream.core.utils.Query;
+import com.tan.dream.core.tree.Tree;
 import com.tan.dream.core.vo.ResultVO;
 import com.tan.dream.sys.domain.DeptDO;
 import com.tan.dream.sys.service.DeptService;
@@ -62,10 +61,16 @@ public class DeptController {
 		List<DeptDO> sysDeptList = deptService.list(query);
 		return sysDeptList;
 	}
-	@GetMapping("/add")
+	@GetMapping("/add/{pId}")
 	@RequiresPermissions("sys:dept:add")
-	String add(){
-	    return "sys/dept/add";
+	String add(@PathVariable("pId") Long pId, Model model) {
+		model.addAttribute("pId", pId);
+		if (pId == 0) {
+			model.addAttribute("pName", "总部门");
+		} else {
+			model.addAttribute("pName", deptService.get(pId).getName());
+		}
+		return  prefix + "add";
 	}
 
 	
@@ -114,6 +119,18 @@ public class DeptController {
 	public ResultVO remove(@RequestParam("ids[]") Long[] deptIds){
 		deptService.batchRemove(deptIds);
 		return ResultVO.ok();
+	}
+	@GetMapping("/tree")
+	@ResponseBody
+	public Tree<DeptDO> tree() {
+		Tree<DeptDO> tree = new Tree<DeptDO>();
+		tree = deptService.getTree();
+		return tree;
+	}
+
+	@GetMapping("/treeView")
+	String treeView() {
+		return  prefix + "deptTree";
 	}
 	
 }

@@ -1,13 +1,12 @@
 package com.tan.dream.sys.service.impl;
 
+import com.tan.dream.sys.dao.RoleMenuDao;
 import com.tan.dream.sys.dao.UserRoleDao;
+import com.tan.dream.sys.domain.RoleMenuDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import com.tan.dream.sys.dao.RoleDao;
 import com.tan.dream.sys.domain.RoleDO;
@@ -21,7 +20,10 @@ public class RoleServiceImpl implements RoleService {
 	private RoleDao roleDao;
 	@Autowired
 	private UserRoleDao userRoleDao;
-	
+	@Autowired
+	private RoleMenuDao roleMenuDao;
+
+
 	@Override
 	public RoleDO get(Long roleId){
 		return roleDao.get(roleId);
@@ -42,11 +44,25 @@ public class RoleServiceImpl implements RoleService {
 		return roleDao.save(role);
 	}
 	
+
 	@Override
-	public int update(RoleDO role){
-		return roleDao.update(role);
+	public int update(RoleDO role) {
+		int r = roleDao.update(role);
+		List<Long> menuIds = role.getMenuIds();
+		Long roleId = role.getRoleId();
+		roleMenuDao.removeByRoleId(roleId);
+		List<RoleMenuDO> rms = new ArrayList<>();
+		for (Long menuId : menuIds) {
+			RoleMenuDO rmDo = new RoleMenuDO();
+			rmDo.setRoleId(roleId);
+			rmDo.setMenuId(menuId);
+			rms.add(rmDo);
+		}
+		if (rms.size() > 0) {
+			roleMenuDao.batchSave(rms);
+		}
+		return r;
 	}
-	
 	@Override
 	public int remove(Long roleId){
 		return roleDao.remove(roleId);

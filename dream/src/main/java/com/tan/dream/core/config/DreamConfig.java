@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix="dream")
 public class DreamConfig {
 	//上传路径
-	private String uploadPath = "/";
+	private static String uploadPath = "/";
 
-	public String getUploadPath() {
+	public static String getUploadPath() {
 		return uploadPath;
 	}
 

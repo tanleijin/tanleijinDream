@@ -1,9 +1,11 @@
+// 以下为官方示例
 $().ready(function() {
 	validateRule();
 });
 
 $.validator.setDefaults({
 	submitHandler : function() {
+		console.log('提交修改');
 		update();
 	}
 });
@@ -11,21 +13,18 @@ function update() {
 	$.ajax({
 		cache : true,
 		type : "POST",
-		url : "/sys/userRole/update",
+		url : "/common/generator/update",
 		data : $('#signupForm').serialize(),// 你的formid
 		async : false,
 		error : function(request) {
-			parent.layer.alert("Connection error");
+			parent.layer.alert("网络连接超时");
 		},
 		success : function(data) {
 			if (data.code == 0) {
-				parent.layer.msg("操作成功");
-				parent.reLoad();
-				var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
-				parent.layer.close(index);
+				parent.layer.msg(data.msg);
 
 			} else {
-				parent.layer.alert(data.msg)
+				parent.layer.msg(data.msg);
 			}
 
 		}
@@ -36,14 +35,28 @@ function validateRule() {
 	var icon = "<i class='fa fa-times-circle'></i> ";
 	$("#signupForm").validate({
 		rules : {
-			name : {
+			author : {
 				required : true
-			}
+			},
+			email : {
+				required : true,
+			},
+			package : {
+				required : true,
+			},
+			
 		},
 		messages : {
-			name : {
-				required : icon + "请输入名字"
-			}
+
+			author : {
+				required : icon + "请输入作者"
+			},
+			email : {
+				required : icon + "请输入email",
+			},
+			package : {
+				required : icon + "请输入包名",
+			},
 		}
 	})
 }

@@ -1,5 +1,6 @@
 package com.tan.dream.sys.service;
 
+import com.tan.dream.core.tree.Tree;
 import com.tan.dream.sys.domain.DeptDO;
 
 import java.util.List;
@@ -27,4 +28,6 @@ public interface DeptService {
 	int remove(Long deptId);
 	
 	int batchRemove(Long[] deptIds);
+
+	Tree<DeptDO> getTree();
 }

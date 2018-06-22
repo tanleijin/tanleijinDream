@@ -2,7 +2,7 @@ package com.tan.dream.sys.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-
+import java.util.List;
 
 
 /**
@@ -29,6 +29,11 @@ public class RoleDO implements Serializable {
 	private Date gmtCreate;
 	//创建时间
 	private Date gmtModified;
+
+	//扩展字段
+	//菜单集合
+	private List<Long> menuIds;
+
 
 	/**
 	 * 设置：
@@ -113,5 +118,13 @@ public class RoleDO implements Serializable {
 	 */
 	public Date getGmtModified() {
 		return gmtModified;
+	}
+
+	public List<Long> getMenuIds() {
+		return menuIds;
+	}
+
+	public void setMenuIds(List<Long> menuIds) {
+		this.menuIds = menuIds;
 	}
 }

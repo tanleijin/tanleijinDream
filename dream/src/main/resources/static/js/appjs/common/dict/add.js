@@ -4,24 +4,24 @@ $().ready(function() {
 
 $.validator.setDefaults({
 	submitHandler : function() {
-		update();
+		save();
 	}
 });
-function update() {
+function save() {
 	$.ajax({
 		cache : true,
 		type : "POST",
-		url : "/sys/roleMenu/update",
-		data : $('#signupForm').serialize(),// 你的formid
+		url : "/common/dict/save",
+		data : $('#signupForm').serialize(), // 你的formid
 		async : false,
 		error : function(request) {
-			parent.layer.alert("Connection error");
+			parent.layer.alert("网络超时");
 		},
 		success : function(data) {
 			if (data.code == 0) {
 				parent.layer.msg("操作成功");
 				parent.reLoad();
-				var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
+				var index = parent.layer.getFrameIndex(window.name);
 				parent.layer.close(index);
 
 			} else {

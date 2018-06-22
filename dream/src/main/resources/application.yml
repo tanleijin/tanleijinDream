@@ -1,6 +1,6 @@
 server:
   session-timeout: 18000
-  port: 8088
+  port: 80
 spring:
    datasource:
      driverClassName: com.mysql.jdbc.Driver

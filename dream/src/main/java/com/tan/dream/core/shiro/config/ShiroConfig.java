@@ -13,6 +13,7 @@ import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,6 +58,7 @@ public class ShiroConfig {
 		shiroFilterFactoryBean.setSecurityManager(securityManager);
 		shiroFilterFactoryBean.setLoginUrl("/login");
 		shiroFilterFactoryBean.setSuccessUrl("/index");
+
 		shiroFilterFactoryBean.setUnauthorizedUrl("/403");
 		LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
 		filterChainDefinitionMap.put("/css/**", "anon");
@@ -108,7 +110,18 @@ public class ShiroConfig {
         Collection<SessionListener> listeners = new ArrayList<SessionListener>();
         listeners.add(new BDSessionListener());
         sessionManager.setSessionListeners(listeners);
+        //设置在cookie中的sessionId名称
+        sessionManager.setSessionIdCookie(simpleCookie());
         return sessionManager;
+    }
+
+    @Bean
+    public SimpleCookie simpleCookie(){
+
+        SimpleCookie simpleCookie = new SimpleCookie();
+        simpleCookie.setName("jeesite.session.id");
+
+        return simpleCookie;
     }
 
 	@Bean

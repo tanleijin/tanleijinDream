@@ -80,5 +80,15 @@
 			#{id}
 		</foreach>
 	</delete>
+	<delete id="removeByUserId">
+		delete from sys_user_role where user_id=#{userId}
+	</delete>
+	<insert id="batchSave">
+		INSERT INTO sys_user_role(user_id, role_id) values
+		<foreach item="item" index="index" collection="list"
+				 separator=",">
+			(#{item.userId},#{item.roleId})
+		</foreach>
+	</insert>
 
 </mapper>

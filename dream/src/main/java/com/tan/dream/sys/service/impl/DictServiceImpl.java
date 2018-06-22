@@ -1,10 +1,14 @@
 package com.tan.dream.sys.service.impl;
 
+import com.tan.dream.sys.domain.UserDO;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import com.tan.dream.sys.dao.DictDao;
 import com.tan.dream.sys.domain.DictDO;
@@ -50,6 +54,50 @@ public class DictServiceImpl implements DictService {
 	@Override
 	public int batchRemove(Long[] ids){
 		return dictDao.batchRemove(ids);
+	}
+	@Override
+	public String getName(String type, String value) {
+		Map<String, Object> param = new HashMap<String, Object>(16);
+		param.put("type", type);
+		param.put("value", value);
+		String rString = dictDao.list(param).get(0).getName();
+		return rString;
+	}
+
+	@Override
+	public List<DictDO> getHobbyList(UserDO userDO) {
+		Map<String, Object> param = new HashMap<>(16);
+		param.put("type", "hobby");
+		List<DictDO> hobbyList = dictDao.list(param);
+
+		if (StringUtils.isNotEmpty(userDO.getHobby())) {
+			String userHobbys[] = userDO.getHobby().split(";");
+			for (String userHobby : userHobbys) {
+				for (DictDO hobby : hobbyList) {
+					if (!Objects.equals(userHobby, hobby.getId().toString())) {
+						continue;
+					}
+					hobby.setRemarks("true");
+					break;
+				}
+			}
+		}
+
+		return hobbyList;
+	}
+
+	@Override
+	public List<DictDO> getSexList() {
+		Map<String, Object> param = new HashMap<>(16);
+		param.put("type", "sex");
+		return dictDao.list(param);
+	}
+
+	@Override
+	public List<DictDO> listByType(String type) {
+		Map<String, Object> param = new HashMap<>(16);
+		param.put("type", type);
+		return dictDao.list(param);
 	}
 	
 }

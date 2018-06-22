@@ -39,4 +39,8 @@ public interface UserRoleDao {
 
 	int batchRemoveByUserId(Long[] ids);
 
+	int removeByUserId(Long userId);
+
+	int batchSave(List<UserRoleDO> list);
+
 }
