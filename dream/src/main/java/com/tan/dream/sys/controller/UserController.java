@@ -200,9 +200,9 @@ public class UserController extends BaseController {
 	@PostMapping("/adminResetPwd")
 	@ResponseBody
 	R adminResetPwd(UserVO userVO) {
-		if (Constant.DEMO_ACCOUNT.equals(getUsername())) {
+/*		if (Constant.DEMO_ACCOUNT.equals(getUsername())) {
 			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
+		}*/
 		try{
 			userService.adminResetPwd(userVO);
 			return R.ok();
