@@ -44,7 +44,7 @@ function load() {
 									title : '表名称' // 列标题
 								},
 								{
-									field : 'engine',
+									field : 'ENGINE',
 									title : 'engine'
 								},
 								{

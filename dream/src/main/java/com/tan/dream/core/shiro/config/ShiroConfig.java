@@ -106,6 +106,8 @@ public class ShiroConfig {
     public DefaultWebSessionManager sessionManager() {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         sessionManager.setGlobalSessionTimeout(tomcatTimeout*1000);
+        //设置sessionDao对session查询，在查询在线用户service中用到了
+        sessionManager.setSessionDAO(sessionDAO());
         //配置session的监听
         Collection<SessionListener> listeners = new ArrayList<SessionListener>();
         listeners.add(new BDSessionListener());
@@ -113,6 +115,11 @@ public class ShiroConfig {
         //设置在cookie中的sessionId名称
         sessionManager.setSessionIdCookie(simpleCookie());
         return sessionManager;
+    }
+
+    @Bean
+    public SessionDAO sessionDAO(){
+        return new MemorySessionDAO();
     }
 
     @Bean
